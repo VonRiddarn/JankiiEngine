@@ -12,7 +12,7 @@ abstract class Game(int tickRate, bool cursorVisible = false)
 	readonly int _tickMs = (int)MathF.Floor(1000f / tickRate);
 	bool _isRunning = false;
 
-	async public void Run()
+	public void Run()
 	{
 		if (_isRunning) return;
 		_isRunning = true;
