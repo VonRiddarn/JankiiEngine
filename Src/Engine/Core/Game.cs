@@ -51,7 +51,7 @@ abstract class Game(int tickRate, bool cursorVisible = false)
 		// TODO: Allow end user to add more stuff to the splash screen dynamically...
 		Console.Clear();
 		Console.Write(@"
-      █████   █████████   ██████   █████ █████   ████ █████ █████     
+      █████   █████████   ██████   █████ █████   ████ █████ █████      
       ▒▒███   ███▒▒▒▒▒███ ▒▒██████ ▒▒███ ▒▒███   ███▒ ▒▒███ ▒▒███      
        ▒███  ▒███    ▒███  ▒███▒███ ▒███  ▒███  ███    ▒███  ▒███      
        ▒███  ▒███████████  ▒███▒▒███▒███  ▒███████     ▒███  ▒███      
