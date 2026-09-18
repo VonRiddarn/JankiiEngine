@@ -4,18 +4,12 @@ using System.Threading;
 namespace JankiiEngine;
 
 
-abstract class Game
+abstract class Game(GameConfig config)
 {
-	protected readonly GameConfig _gameConfig;
-	readonly int _tickMs;
+	protected readonly GameConfig _gameConfig = config;
+	readonly int _tickMs = (int)MathF.Floor(1000f / config.TickRate);
 
 	bool _isRunning = false;
-
-	public Game(GameConfig config)
-	{
-		_gameConfig = config;
-		_tickMs = (int)MathF.Floor(1000f / config.TickRate);
-	}
 
 	public void Run()
 	{
