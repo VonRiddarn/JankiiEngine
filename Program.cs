@@ -8,7 +8,7 @@ class Program
 	{
 		Console.WriteLine("Hello, World!");
 
-		var game = new AlienShooter(60);
+		var game = new AlienShooter(new GameConfig { Title = "AlienShooter" });
 		game.Run();
 	}
 }

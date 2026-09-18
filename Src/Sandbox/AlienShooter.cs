@@ -1,11 +1,7 @@
 using JankiiEngine;
 
-class AlienShooter : Game
+class AlienShooter(GameConfig config) : Game(config)
 {
-	public AlienShooter(int tickRate, bool cursorVisible = false) : base(tickRate, cursorVisible)
-	{
-	}
-
 	protected override void Initialize()
 	{
 	}

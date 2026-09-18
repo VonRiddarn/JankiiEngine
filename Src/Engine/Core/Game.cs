@@ -3,26 +3,34 @@ using System.Threading;
 
 namespace JankiiEngine;
 
-// TODO: Add a GameSettings object instead. 
-// It'll contain lots of default settings that can be overridden.
-// This makes it easier to customize as see fit.
-// EG: {TickRate: 60, SizeX: 120, SizeY: 120}
-abstract class Game(int tickRate, bool cursorVisible = false)
+
+abstract class Game
 {
-	readonly int _tickMs = (int)MathF.Floor(1000f / tickRate);
+	protected readonly GameConfig _gameConfig;
+	readonly int _tickMs;
+
 	bool _isRunning = false;
+
+	public Game(GameConfig config)
+	{
+		_gameConfig = config;
+		_tickMs = (int)MathF.Floor(1000f / config.TickRate);
+	}
 
 	public void Run()
 	{
 		if (_isRunning) return;
 		_isRunning = true;
 
+		Console.Title = _gameConfig.Title;
+
 		Renderer.CursorVisible = false;
 		RunSplashScreen();
 
 
-		Renderer.CursorVisible = cursorVisible;
+		Renderer.CursorVisible = _gameConfig.CursorVisible;
 		Initialize();
+		// TODO: Make sure to pass GameConfig to the engine backend so we can use width / height for viewport rendering.
 		// TODO: Setup input thread
 		// TODO: Setup update thread
 	}
