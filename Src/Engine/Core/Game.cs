@@ -1,5 +1,6 @@
 using System;
 using System.Threading;
+using JankiiEngine.Internal;
 
 namespace JankiiEngine;
 
@@ -24,8 +25,9 @@ abstract class Game(GameConfig config)
 
 		Renderer.CursorVisible = _gameConfig.CursorVisible;
 		Initialize();
-		// TODO: Make sure to pass GameConfig to the engine backend so we can use width / height for viewport rendering.
-		// TODO: Setup input thread
+
+		// Input thread
+		Input.Initialize_Internal();
 
 		// Update is on main thread.
 		while (true)
