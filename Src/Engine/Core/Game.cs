@@ -26,7 +26,15 @@ abstract class Game(GameConfig config)
 		Initialize();
 		// TODO: Make sure to pass GameConfig to the engine backend so we can use width / height for viewport rendering.
 		// TODO: Setup input thread
-		// TODO: Setup update thread
+
+		// Update is on main thread.
+		while (true)
+		{
+			Update();
+			// TODO: Renderer
+
+			Thread.Sleep(_tickMs);
+		}
 	}
 
 	/// <summary>
