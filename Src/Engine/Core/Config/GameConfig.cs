@@ -1,9 +1,14 @@
+using System;
+
 namespace JankiiEngine;
 
 class GameConfig
 {
 	public string Title { get; set; } = "JankiiEngine Game";
 	public int TickRate { get; set; } = 60;
+
+	public ConsoleColor BgColor { get; set; } = ConsoleColor.Black;
+	public ConsoleColor FgColor { get; set; } = ConsoleColor.White;
 
 	public int Width { get; set; } = 200;
 	public int Height { get; set; } = 30;

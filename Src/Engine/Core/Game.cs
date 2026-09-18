@@ -18,11 +18,9 @@ abstract class Game(GameConfig config)
 
 		Console.Title = _gameConfig.Title;
 
-		Renderer.CursorVisible = false;
 		RunSplashScreen();
+		SetupConsoleEnvironment(_gameConfig);
 
-
-		Renderer.CursorVisible = _gameConfig.CursorVisible;
 		Initialize();
 
 		// Input thread
@@ -54,38 +52,24 @@ abstract class Game(GameConfig config)
 	//	   HELPERS
 	// ----- ----- -----
 
+	static void SetupConsoleEnvironment(GameConfig config)
+	{
+		Console.ForegroundColor = config.FgColor;
+		Console.BackgroundColor = config.BgColor;
+
+		Renderer.CursorVisible = config.CursorVisible;
+	}
+
 	static void RunSplashScreen()
 	{
 		// TODO: Allow end user to add more stuff to the splash screen dynamically...
+		Renderer.CursorVisible = false;
 		Console.Clear();
 		Console.ForegroundColor = ConsoleColor.DarkYellow; // (ConsoleColor)Random.Shared.Next(1, 16);
-		Console.Write(@"
-      █████   █████████   ██████   █████ █████   ████ █████ █████      
-      ▒▒███   ███▒▒▒▒▒███ ▒▒██████ ▒▒███ ▒▒███   ███▒ ▒▒███ ▒▒███      
-       ▒███  ▒███    ▒███  ▒███▒███ ▒███  ▒███  ███    ▒███  ▒███      
-       ▒███  ▒███████████  ▒███▒▒███▒███  ▒███████     ▒███  ▒███      
-       ▒███  ▒███▒▒▒▒▒███  ▒███ ▒▒██████  ▒███▒▒███    ▒███  ▒███      
- ███   ▒███  ▒███    ▒███  ▒███  ▒▒█████  ▒███ ▒▒███   ▒███  ▒███      
-▒▒████████   █████   █████ █████  ▒▒█████ █████ ▒▒████ █████ █████     
- ▒▒▒▒▒▒▒▒   ▒▒▒▒▒   ▒▒▒▒▒ ▒▒▒▒▒    ▒▒▒▒▒ ▒▒▒▒▒   ▒▒▒▒ ▒▒▒▒▒ ▒▒▒▒▒      
-                                                                       
-                                                                       
-                                                                       
- ██████████ ██████   █████   █████████  █████ ██████   █████ ██████████
-▒▒███▒▒▒▒▒█▒▒██████ ▒▒███   ███▒▒▒▒▒███▒▒███ ▒▒██████ ▒▒███ ▒▒███▒▒▒▒▒█
- ▒███  █ ▒  ▒███▒███ ▒███  ███     ▒▒▒  ▒███  ▒███▒███ ▒███  ▒███  █ ▒ 
- ▒██████    ▒███▒▒███▒███ ▒███          ▒███  ▒███▒▒███▒███  ▒██████   
- ▒███▒▒█    ▒███ ▒▒██████ ▒███    █████ ▒███  ▒███ ▒▒██████  ▒███▒▒█   
- ▒███ ▒   █ ▒███  ▒▒█████ ▒▒███  ▒▒███  ▒███  ▒███  ▒▒█████  ▒███ ▒   █
- ██████████ █████  ▒▒█████ ▒▒█████████  █████ █████  ▒▒█████ ██████████
-▒▒▒▒▒▒▒▒▒▒ ▒▒▒▒▒    ▒▒▒▒▒   ▒▒▒▒▒▒▒▒▒  ▒▒▒▒▒ ▒▒▒▒▒    ▒▒▒▒▒ ▒▒▒▒▒▒▒▒▒▒ 
-                                                                       ");
+		Console.WriteLine(Graphics.ENGINE_LOGO);
 
-		Console.ResetColor();
-		Console.WriteLine(@"
-                                                                        
-                            by VonRiddarn                             
-                           EMBRACE THE JANK                             ");
+		Console.ForegroundColor = ConsoleColor.White; // (ConsoleColor)Random.Shared.Next(1, 16);
+		Console.WriteLine(Graphics.ENGINGE_CREDITS);
 		Thread.Sleep(2500);
 		Console.Clear();
 	}
