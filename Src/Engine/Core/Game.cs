@@ -38,10 +38,6 @@ abstract class Game(int tickRate, bool cursorVisible = false)
 	/// </summary>
 	protected abstract void Update();
 
-
-
-
-
 	// ----- ----- -----
 	//	   HELPERS
 	// ----- ----- -----
@@ -50,6 +46,7 @@ abstract class Game(int tickRate, bool cursorVisible = false)
 	{
 		// TODO: Allow end user to add more stuff to the splash screen dynamically...
 		Console.Clear();
+		Console.ForegroundColor = ConsoleColor.DarkYellow; // (ConsoleColor)Random.Shared.Next(1, 16);
 		Console.Write(@"
       █████   █████████   ██████   █████ █████   ████ █████ █████      
       ▒▒███   ███▒▒▒▒▒███ ▒▒██████ ▒▒███ ▒▒███   ███▒ ▒▒███ ▒▒███      
@@ -69,11 +66,14 @@ abstract class Game(int tickRate, bool cursorVisible = false)
  ▒███▒▒█    ▒███ ▒▒██████ ▒███    █████ ▒███  ▒███ ▒▒██████  ▒███▒▒█   
  ▒███ ▒   █ ▒███  ▒▒█████ ▒▒███  ▒▒███  ▒███  ▒███  ▒▒█████  ▒███ ▒   █
  ██████████ █████  ▒▒█████ ▒▒█████████  █████ █████  ▒▒█████ ██████████
-▒▒▒▒▒▒▒▒▒▒ ▒▒▒▒▒    ▒▒▒▒▒   ▒▒▒▒▒▒▒▒▒  ▒▒▒▒▒ ▒▒▒▒▒    ▒▒▒▒▒ ▒▒▒▒▒▒▒▒▒▒
+▒▒▒▒▒▒▒▒▒▒ ▒▒▒▒▒    ▒▒▒▒▒   ▒▒▒▒▒▒▒▒▒  ▒▒▒▒▒ ▒▒▒▒▒    ▒▒▒▒▒ ▒▒▒▒▒▒▒▒▒▒ 
+                                                                       ");
 
+		Console.ResetColor();
+		Console.WriteLine(@"
+                                                                        
                             by VonRiddarn                             
                            EMBRACE THE JANK                             ");
-
 		Thread.Sleep(2500);
 		Console.Clear();
 	}
