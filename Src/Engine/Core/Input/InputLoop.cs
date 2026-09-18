@@ -8,7 +8,7 @@ static partial class Input
 {
 	static readonly HashSet<ConsoleKey> _keyCache = [];
 
-	public static void ClearCacheInternal() => _keyCache.Clear();
+	internal static void Clear_Cache_Internal() => _keyCache.Clear();
 
 	internal static void Initialize_Internal()
 	{
@@ -20,7 +20,7 @@ static partial class Input
 	{
 		while (true)
 		{
-			_keyCache.Add(Console.ReadKey().Key);
+			_keyCache.Add(Console.ReadKey(true).Key);
 		}
 	}
 }

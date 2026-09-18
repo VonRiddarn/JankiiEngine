@@ -35,6 +35,7 @@ abstract class Game(GameConfig config)
 			Update();
 			// TODO: Renderer
 
+			Input.Clear_Cache_Internal();
 			Thread.Sleep(_tickMs);
 		}
 	}

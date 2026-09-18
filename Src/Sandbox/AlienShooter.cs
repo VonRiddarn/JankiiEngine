@@ -11,6 +11,11 @@ class AlienShooter(GameConfig config) : Game(config)
 
 	protected override void Update()
 	{
-		Console.WriteLine("Pew\t\t(Press ctrl + C to kill proccess)");
+
+		if (Input.GetKeyDown(ConsoleKey.Spacebar))
+		{
+			Console.ForegroundColor = (ConsoleColor)Random.Shared.Next(9, 16);
+			Console.WriteLine("SPACE");
+		}
 	}
 }
