@@ -9,6 +9,10 @@ namespace JankiiEngine;
 // Another alternative: ANSI codes and buffer. I've never gotten ANSI to work as I want it to though.
 // Might be a good cross-platform performance project
 
+// TODO: Make a monochrome console buffer that uses monochrome cells. 
+// They will only use a light value and automatically set their own character based on that.
+// Like: @ $ & : . or whatever the Light - Dark scale is for ASCII art.
+
 public class ConsoleBuffer : IRenderer
 {
 	readonly int _width, _height;
@@ -68,6 +72,7 @@ public class ConsoleBuffer : IRenderer
 					continue;
 
 				Console.SetCursorPosition(x, y);
+
 				if (Console.ForegroundColor != _backBuffer[index].FgColor)
 					Console.ForegroundColor = _backBuffer[index].FgColor;
 
