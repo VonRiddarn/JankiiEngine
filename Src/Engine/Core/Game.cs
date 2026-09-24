@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 
 namespace JankiiEngine;
@@ -12,6 +14,10 @@ abstract class Game(GameConfig config)
 	readonly ConsoleBuffer _consoleBuffer = new();
 
 	bool _isRunning = false;
+
+	readonly Dictionary<int, Entity> _entities = [];
+	readonly List<int> _entitiesToRemove = [];
+	readonly HashSet<int> _enabledEntities = [];
 
 	public void Run()
 	{
@@ -33,7 +39,12 @@ abstract class Game(GameConfig config)
 
 		while (true)
 		{
+			// Update main game loop
 			Update();
+
+			// Update, Enable and Destroy entities
+			UpdateEntities();
+
 			_consoleBuffer.Clear();
 			Draw(_consoleBuffer);
 			_consoleBuffer.Draw();
@@ -62,6 +73,48 @@ abstract class Game(GameConfig config)
 	//	   HELPERS
 	// ----- ----- -----
 
+	void UpdateEntities()
+	{
+		// Update, enable or queue to destroy entities
+		if (_entities.Count > 0)
+		{
+			foreach (var kvp in _entities)
+			{
+				Entity e = kvp.Value;
+
+				if (e.IsDestroyed)
+				{
+					e.OnDestroy();
+					_entitiesToRemove.Add(e.InstanceId);
+					continue;
+				}
+				else if (e.IsEnabled)
+				{
+					if (!_enabledEntities.Contains(e.InstanceId))
+					{
+						e.OnEnable();
+						_enabledEntities.Add(e.InstanceId);
+					}
+					e.Update();
+				}
+				else
+					_enabledEntities.Remove(e.InstanceId);
+			}
+		}
+
+		// Destroy entities
+		foreach (int id in _entitiesToRemove)
+		{
+			_entities.Remove(id);
+			_enabledEntities.Remove(id);
+		}
+
+		_entitiesToRemove.Clear();
+	}
+
+	// ----- ----- -----
+	//	STATIC HELPERS
+	// ----- ----- -----
 
 	static void SetupConsoleEnvironment(GameConfig config)
 	{
