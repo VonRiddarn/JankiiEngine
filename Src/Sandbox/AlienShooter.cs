@@ -21,15 +21,13 @@ class AlienShooter(GameConfig config) : Game(config)
 		}
 	}
 
-	protected override void Draw(ConsoleBuffer buffer)
+	protected override void Draw(IRenderer renderer)
 	{
 		// Concern mixing, don't mind this :P
 		if ((_x + _dir) is > 120 or < 0)
 			_dir *= -1;
 
-		buffer.Clear();
-		buffer.SetCell(_x, 3, '@', _dir == 1 ? ConsoleColor.Blue : ConsoleColor.DarkYellow, ConsoleColor.Black);
-		buffer.Draw();
+		renderer.SetCell(_x, 3, '@', _dir == 1 ? ConsoleColor.Blue : ConsoleColor.DarkYellow, ConsoleColor.Black);
 
 		_x += _dir;
 	}

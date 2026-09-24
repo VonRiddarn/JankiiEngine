@@ -34,7 +34,9 @@ abstract class Game(GameConfig config)
 		while (true)
 		{
 			Update();
+			_consoleBuffer.Clear();
 			Draw(_consoleBuffer);
+			_consoleBuffer.Draw();
 
 			Input.Clear_Cache_Internal();
 			Thread.Sleep(_tickMs);
@@ -54,7 +56,7 @@ abstract class Game(GameConfig config)
 	/// </summary>
 	protected abstract void Update();
 
-	protected abstract void Draw(ConsoleBuffer buffer);
+	protected abstract void Draw(IRenderer renderer);
 
 	// ----- ----- -----
 	//	   HELPERS

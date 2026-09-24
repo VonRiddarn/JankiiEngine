@@ -9,10 +9,10 @@ namespace JankiiEngine;
 // Another alternative: ANSI codes and buffer. I've never gotten ANSI to work as I want it to though.
 // Might be a good cross-platform performance project
 
-public class ConsoleBuffer
+public class ConsoleBuffer : IRenderer
 {
-	int _width, _height;
-	Cell[] _frontBuffer, _backBuffer;
+	readonly int _width, _height;
+	readonly Cell[] _frontBuffer, _backBuffer;
 
 	public ConsoleBuffer(int width = 120, int height = 30)
 	{
@@ -56,7 +56,7 @@ public class ConsoleBuffer
 
 	public void Draw()
 	{
-		int index = 0;
+		int index;
 
 		for (int y = 0; y < _height; y++)
 		{
