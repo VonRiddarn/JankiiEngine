@@ -97,7 +97,7 @@ abstract class Game(GameConfig config)
 					}
 					e.Update();
 				}
-				else
+				else if (_enabledEntities.Contains(e.InstanceId))
 				{
 					e.OnDisable();
 					_enabledEntities.Remove(e.InstanceId);
