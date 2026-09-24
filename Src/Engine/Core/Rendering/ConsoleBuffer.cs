@@ -25,14 +25,22 @@ public class ConsoleBuffer
 		_frontBuffer = new Cell[bufferLength];
 		_backBuffer = new Cell[bufferLength];
 
-		Clear();
+		Initialize();
+	}
+
+	void Initialize()
+	{
+		for (int i = 0; i < _backBuffer.Length; i++)
+		{
+			_backBuffer[i] = new Cell(' ', ConsoleColor.White, ConsoleColor.Black);
+		}
 	}
 
 	public void Clear()
 	{
 		for (int i = 0; i < _backBuffer.Length; i++)
 		{
-			_backBuffer[i] = new Cell(' ', ConsoleColor.White, ConsoleColor.Black);
+			_backBuffer[i].Update(' ', ConsoleColor.White, ConsoleColor.Black);
 		}
 	}
 
