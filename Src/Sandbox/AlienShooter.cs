@@ -47,6 +47,12 @@ class AlienShooter(GameConfig config) : Game(config)
 			Layer = 1
 		};
 		Entity.Instantiate(player);
+
+		Ball ball = new(5, 5, 'O', ConsoleColor.Blue)
+		{
+			Layer = 1
+		};
+		Entity.Instantiate(ball);
 	}
 
 	protected override void Update()
