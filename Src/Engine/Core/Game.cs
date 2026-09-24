@@ -42,20 +42,30 @@ abstract class Game(GameConfig config)
 
 		// Update is on main thread.
 
-		while (true)
+		try
 		{
-			// Update main game loop
-			Update();
+			while (true)
+			{
+				// Update main game loop
+				Update();
 
-			// Update, Enable and Destroy entities
-			UpdateEntities();
+				// Update, Enable and Destroy entities
+				UpdateEntities();
 
-			_consoleBuffer.Clear();
-			Draw(_consoleBuffer);
-			_consoleBuffer.Draw();
+				_consoleBuffer.Clear();
+				Draw(_consoleBuffer);
+				_consoleBuffer.Draw();
 
-			Input.Clear_Cache_Internal();
-			Thread.Sleep(_tickMs);
+				Input.Clear_Cache_Internal();
+				Thread.Sleep(_tickMs);
+			}
+		}
+		catch (Exception e)
+		{
+			Console.Clear();
+			Console.Write(e.Message);
+			Console.WriteLine("Enter to continue...");
+			Console.ReadLine();
 		}
 	}
 
