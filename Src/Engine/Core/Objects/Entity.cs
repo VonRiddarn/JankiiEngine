@@ -1,11 +1,6 @@
 
 namespace JankiiEngine;
 
-// TODO: Allow null to be passed as background to the entity.
-// Then in the drawing stage, if the background is null, use the cell's current background. 
-// This allows us to make stuff like water or doors etc, and have players "swim" inside the water
-// Without janking tf out of the colors when moving
-
 public abstract class Entity
 {
 	static Game? _currentGame = null;

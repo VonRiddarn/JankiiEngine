@@ -48,14 +48,14 @@ public class ConsoleBuffer : IRenderer
 		}
 	}
 
-	public void SetCell(int x, int y, char c, ConsoleColor fg, ConsoleColor bg)
+	public void SetCell(int x, int y, char c, ConsoleColor fg, ConsoleColor? bg)
 	{
 		if (x < 0 || x >= _width || y < 0 || y >= _height)
 			return;
 
 		int index = y * _width + x;
 
-		_backBuffer[index].Update(c, fg, bg);
+		_backBuffer[index].Update(c, fg, bg ?? _backBuffer[index].BgColor);
 	}
 
 	public void Draw()

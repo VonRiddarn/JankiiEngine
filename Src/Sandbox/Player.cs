@@ -1,7 +1,7 @@
 using System;
 using JankiiEngine;
 
-class Player(int x, int y, char c, ConsoleColor fg = ConsoleColor.White, ConsoleColor bg = ConsoleColor.Black) : Entity2D(x, y, c, fg, bg)
+class Player(int x, int y, char c, ConsoleColor fg = ConsoleColor.White, ConsoleColor? bg = null) : Entity2D(x, y, c, fg, bg)
 {
 	public override void OnDisable()
 	{
