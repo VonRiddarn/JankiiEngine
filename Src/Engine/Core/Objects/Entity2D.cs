@@ -13,5 +13,5 @@ public abstract class Entity2D(int x, int y, char c, ConsoleColor fg = ConsoleCo
 
 
 	public override abstract void Update();
-	public override void Draw(IRenderer renderer) => renderer.SetCell(X, Y, Char, FgColor, BgColor);
+	public override void Draw(IConsoleBuffer renderer) => renderer.SetCell(X, Y, Char, FgColor, BgColor);
 }

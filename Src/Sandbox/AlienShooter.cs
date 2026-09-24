@@ -64,13 +64,13 @@ class AlienShooter(GameConfig config) : Game(config)
 		}
 	}
 
-	protected override void Draw(IRenderer renderer)
+	protected override void Draw(IConsoleBuffer renderer)
 	{
 		DrawMap(renderer);
 		DrawEntities(1);
 	}
 
-	void DrawMap(IRenderer renderer)
+	void DrawMap(IConsoleBuffer renderer)
 	{
 		for (int y = 0; y < _layerZeroMap.Length; y++)
 		{

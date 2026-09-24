@@ -82,7 +82,7 @@ abstract class Game(GameConfig config)
 	/// </summary>
 	protected abstract void Update();
 
-	protected abstract void Draw(IRenderer renderer);
+	protected abstract void Draw(IConsoleBuffer renderer);
 
 	// ----- ----- -----
 	//	   	  API

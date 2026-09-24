@@ -44,5 +44,5 @@ public abstract class Entity
 	public abstract void Update();
 	public virtual void OnInitialize() { }
 	public virtual void OnDestroy() { }
-	public virtual void Draw(IRenderer renderer) { }
+	public virtual void Draw(IConsoleBuffer renderer) { }
 }

@@ -13,7 +13,7 @@ namespace JankiiEngine;
 // They will only use a light value and automatically set their own character based on that.
 // Like: @ $ & : . or whatever the Light - Dark scale is for ASCII art.
 
-public class ConsoleBuffer : IRenderer
+public class ConsoleBuffer : IConsoleBuffer
 {
 	readonly int _width, _height;
 	readonly Cell[] _frontBuffer, _backBuffer;
