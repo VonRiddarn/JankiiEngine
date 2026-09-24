@@ -5,6 +5,9 @@ namespace JankiiEngine;
 // TODO: Look into WriteConsoleOutput (windows only)
 // Maybe have the gamesetting require a render-enginge of choice.
 // To streamline the API both renderers (Buffer and Block) can use something like IRenderEngine
+// 
+// Another alternative: ANSI codes and buffer. I've never gotten ANSI to work as I want it to though.
+// Might be a good cross-platform performance project
 
 public class ConsoleBuffer
 {
