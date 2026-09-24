@@ -2,6 +2,10 @@ using System;
 
 namespace JankiiEngine;
 
+// TODO: Look into WriteConsoleOutput (windows only)
+// Maybe have the gamesetting require a render-enginge of choice.
+// To streamline the API both renderers (Buffer and Block) can use something like IRenderEngine
+
 public class ConsoleBuffer
 {
 	int _width, _height;
