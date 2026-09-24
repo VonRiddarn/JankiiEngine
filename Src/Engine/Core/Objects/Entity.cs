@@ -38,10 +38,10 @@ public abstract class Entity
 	// ----- ----- -----
 	//		  API
 	// ----- ----- -----
-	public abstract void Update();
-	public virtual void OnInitialize() { }
 	public abstract void OnEnable();
 	public abstract void OnDisable();
+	public abstract void Update();
+	public virtual void OnInitialize() { }
 	public virtual void OnDestroy() { }
 	public virtual void Draw(IRenderer renderer) { }
 }
