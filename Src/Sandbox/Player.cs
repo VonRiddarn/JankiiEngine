@@ -13,13 +13,14 @@ class Player(int x, int y, char c, ConsoleColor fg = ConsoleColor.White, Console
 
 	public override void Update()
 	{
-		if (Input.GetKeyDown(ConsoleKey.UpArrow))
+		if (Input.GetKeyDown(ConsoleKey.UpArrow) && (Y - 1) >= 0)
 			Y -= 1;
-		if (Input.GetKeyDown(ConsoleKey.DownArrow))
+		if (Input.GetKeyDown(ConsoleKey.DownArrow) && (Y + 1) < Renderer.Window.Height)
 			Y += 1;
-		if (Input.GetKeyDown(ConsoleKey.LeftArrow))
+		if (Input.GetKeyDown(ConsoleKey.LeftArrow) && (X - 1) >= 0)
 			X -= 1;
-		if (Input.GetKeyDown(ConsoleKey.RightArrow))
+		if (Input.GetKeyDown(ConsoleKey.RightArrow) && (X + 1) < Renderer.Window.Width)
 			X += 1;
 	}
 }
+

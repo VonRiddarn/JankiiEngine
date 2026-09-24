@@ -10,7 +10,7 @@ class GameConfig
 	public ConsoleColor BgColor { get; set; } = ConsoleColor.Black;
 	public ConsoleColor FgColor { get; set; } = ConsoleColor.White;
 
-	public int Width { get; set; } = 200;
+	public int Width { get; set; } = 120;
 	public int Height { get; set; } = 30;
 
 	public bool CursorVisible { get; set; } = false;

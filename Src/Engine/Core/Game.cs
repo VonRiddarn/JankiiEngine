@@ -32,8 +32,8 @@ abstract class Game(GameConfig config)
 		RunSplashScreen();
 		SetupConsoleEnvironment(_gameConfig);
 
-		// Setup Entity connection
-		Entity.Set_Game_Internal(this);
+		// Instantiate singletons etc...
+		SetupEngineConnections();
 
 		Initialize();
 
@@ -111,6 +111,16 @@ abstract class Game(GameConfig config)
 	// ----- ----- -----
 	//	   HELPERS
 	// ----- ----- -----
+
+
+	void SetupEngineConnections()
+	{
+		// Setup Entity connection
+		Entity.Set_Game_Internal(this);
+
+		// Setup game window (bounds)
+		Renderer.Setup_Internal(_gameConfig);
+	}
 
 	void UpdateEntities()
 	{
