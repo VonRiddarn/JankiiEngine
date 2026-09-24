@@ -10,6 +10,9 @@ class AlienShooter(GameConfig config) : Game(config)
 	{
 		Console.WriteLine("Ready to kill some alien scum?");
 		Console.ReadLine();
+
+		Player player = new(5, 5, '$', ConsoleColor.Green, ConsoleColor.Black);
+		Entity.Instantiate(player);
 	}
 
 	protected override void Update()
