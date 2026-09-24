@@ -9,12 +9,17 @@ static class Input
 
 	static readonly HashSet<ConsoleKey> _keyCache = [];
 
+	static readonly Lock _cacehLock = new();
+
 	// ----- ***** ***** ***** -----
 	//				API
 	// ----- ----- ----- ----- -----
 
 	public static bool GetKeyDown(ConsoleKey key)
-	=> _keyCache.Contains(key);
+	{
+		lock (_cacehLock)
+			return _keyCache.Contains(key);
+	}
 
 
 	// ----- ***** ***** ***** -----
@@ -25,7 +30,10 @@ static class Input
 	{
 		while (true)
 		{
-			_keyCache.Add(Console.ReadKey(true).Key);
+			var keyInfo = Console.ReadKey(true);
+
+			lock (_cacehLock)
+				_keyCache.Add(keyInfo.Key);
 		}
 	}
 
@@ -33,7 +41,11 @@ static class Input
 	//			INTERNAL
 	// ----- ----- ----- ----- -----
 
-	internal static void Clear_Cache_Internal() => _keyCache.Clear();
+	internal static void Clear_Cache_Internal()
+	{
+		lock (_cacehLock)
+			_keyCache.Clear();
+	}
 
 	internal static void Initialize_Internal()
 	{
