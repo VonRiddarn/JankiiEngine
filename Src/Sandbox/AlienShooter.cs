@@ -3,15 +3,37 @@ using JankiiEngine;
 
 class AlienShooter(GameConfig config) : Game(config)
 {
-	int _x = 0;
-	int _dir = 1;
+
+	readonly string[] _layerZeroMap = [
+		"################################################################################",
+	"#,.,,,,,,.,,,,,,.,,#.........................#.................................#",
+	"#,,... .,,,.,......+..........O...O..........+.................................#",
+	"#,,, O ,,,........:#..........O...O..........#...#######+#######...#########...#",
+	"#,,,,,,,.........::#.........................#...#.............#...#.......#...#",
+	"#,.,,,.,........:::#..........O...O..........#...#...:::::::...#...+.......#...#",
+	"########+###########..........O...O..........#...#...:::::::...#...#.......#...#",
+	"#..................#.........................#...#.............#...#########...#",
+	"#......::::........#..........O...O..........#...###############...............#",
+	"#......:::.........+..........O...O..........+.................................#",
+	"#..................######################+###########################+##########",
+	"#......O...O.......#.........................#.................................#",
+	"#..................+...::::..................#.....%................%..........#",
+	"#..................#...::::..................#.................................#",
+	"#......O...O.......#...::::....O.......O.....#...........%.....................#",
+	"#..................#.........................#.................................#",
+	"#..................#.........................+..........................%......#",
+	"################################################################################"
+	];
 
 	protected override void Initialize()
 	{
 		Console.WriteLine("Ready to kill some alien scum?");
 		Console.ReadLine();
 
-		Player player = new(5, 5, '$', ConsoleColor.Green, ConsoleColor.Black);
+		Player player = new(5, 5, '@', ConsoleColor.Green, ConsoleColor.Black)
+		{
+			Layer = 1
+		};
 		Entity.Instantiate(player);
 	}
 
@@ -26,12 +48,38 @@ class AlienShooter(GameConfig config) : Game(config)
 
 	protected override void Draw(IRenderer renderer)
 	{
-		// Concern mixing, don't mind this :P
-		if ((_x + _dir) is > 120 or < 0)
-			_dir *= -1;
+		DrawMap(renderer);
+		DrawEntities(1);
+	}
 
-		renderer.SetCell(_x, 3, '@', _dir == 1 ? ConsoleColor.Blue : ConsoleColor.DarkYellow, ConsoleColor.Black);
+	void DrawMap(IRenderer renderer)
+	{
+		for (int y = 0; y < _layerZeroMap.Length; y++)
+		{
+			for (int x = 0; x < _layerZeroMap[y].Length; x++)
+			{
+				char tile = _layerZeroMap[y][x];
 
-		_x += _dir;
+				if (tile == ' ')
+					continue;
+
+				// Default to black background
+				ConsoleColor fgColor = ConsoleColor.White;
+
+				switch (tile)
+				{
+					case '#': fgColor = ConsoleColor.Gray; break;       // Walls
+					case '.': fgColor = ConsoleColor.DarkGray; break;   // Floor
+					case '+': fgColor = ConsoleColor.DarkYellow; break; // Doors
+					case 'O': fgColor = ConsoleColor.White; break;      // Statues
+					case ':': fgColor = ConsoleColor.DarkRed; break;    // Rubble
+					case ',': fgColor = ConsoleColor.DarkGreen; break;  // Moss
+					case '"': fgColor = ConsoleColor.Green; break;      // Grass
+					case '%': fgColor = ConsoleColor.Magenta; break;    // Spores
+				}
+
+				renderer.SetCell(x, y, tile, fgColor, ConsoleColor.Black);
+			}
+		}
 	}
 }

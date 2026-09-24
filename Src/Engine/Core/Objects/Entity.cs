@@ -12,6 +12,7 @@ public abstract class Entity
 	static int _nextInstanceId = 0;
 
 	public int InstanceId { get; set; }
+	public int Layer { get; set; } = 0;
 	public bool IsEnabled { get; set; } = true;
 	public bool IsDestroyed { get; private set; } = false;
 

@@ -52,7 +52,6 @@ abstract class Game(GameConfig config)
 
 			_consoleBuffer.Clear();
 			Draw(_consoleBuffer);
-			DrawEntities(_consoleBuffer);
 			_consoleBuffer.Draw();
 
 			Input.Clear_Cache_Internal();
@@ -84,25 +83,24 @@ abstract class Game(GameConfig config)
 	internal void Destroy_Entity_Internal(Entity entity)
 		=> _entitiesToDestroy.Enqueue(entity.InstanceId);
 
-
-	// ----- ----- -----
-	//	   HELPERS
-	// ----- ----- -----
-
-	void DrawEntities(IRenderer renderer)
+	public void DrawEntities(int layer = 0)
 	{
 		if (_entities.Count > 0)
 		{
 			foreach (var kvp in _entities)
 			{
 				Entity e = kvp.Value;
-				if (e.IsDestroyed || !e.IsEnabled)
+				if (e.Layer != layer || e.IsDestroyed || !e.IsEnabled)
 					continue;
 
-				e.Draw(renderer);
+				e.Draw(_consoleBuffer);
 			}
 		}
 	}
+
+	// ----- ----- -----
+	//	   HELPERS
+	// ----- ----- -----
 
 	void UpdateEntities()
 	{
