@@ -52,6 +52,7 @@ abstract class Game(GameConfig config)
 
 			_consoleBuffer.Clear();
 			Draw(_consoleBuffer);
+			DrawEntities(_consoleBuffer);
 			_consoleBuffer.Draw();
 
 			Input.Clear_Cache_Internal();
@@ -87,6 +88,21 @@ abstract class Game(GameConfig config)
 	// ----- ----- -----
 	//	   HELPERS
 	// ----- ----- -----
+
+	void DrawEntities(IRenderer renderer)
+	{
+		if (_entities.Count > 0)
+		{
+			foreach (var kvp in _entities)
+			{
+				Entity e = kvp.Value;
+				if (e.IsDestroyed || !e.IsEnabled)
+					continue;
+
+				e.Draw(renderer);
+			}
+		}
+	}
 
 	void UpdateEntities()
 	{
