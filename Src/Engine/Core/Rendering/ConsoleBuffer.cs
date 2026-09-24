@@ -68,8 +68,12 @@ public class ConsoleBuffer : IRenderer
 					continue;
 
 				Console.SetCursorPosition(x, y);
-				Console.ForegroundColor = _backBuffer[index].FgColor;
-				Console.BackgroundColor = _backBuffer[index].BgColor;
+				if (Console.ForegroundColor != _backBuffer[index].FgColor)
+					Console.ForegroundColor = _backBuffer[index].FgColor;
+
+				if (Console.BackgroundColor != _backBuffer[index].BgColor)
+					Console.BackgroundColor = _backBuffer[index].BgColor;
+
 				Console.Write(_backBuffer[index].Char);
 
 				// Sync front buffer to what is currently drawn
