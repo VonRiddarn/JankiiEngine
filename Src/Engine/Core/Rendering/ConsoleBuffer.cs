@@ -35,4 +35,38 @@ public class ConsoleBuffer
 			_backBuffer[i] = new Cell(' ', ConsoleColor.White, ConsoleColor.Black);
 		}
 	}
+
+	public void SetCell(int x, int y, char c, ConsoleColor fg, ConsoleColor bg)
+	{
+		if (x < 0 || x >= _width || y < 0 || y >= _height)
+			return;
+
+		int index = y * _width + x;
+
+		_backBuffer[index].Update(c, fg, bg);
+	}
+
+	public void Draw()
+	{
+		int index = 0;
+
+		for (int y = 0; y < _height; y++)
+		{
+			for (int x = 0; x < _width; x++)
+			{
+				index = y * _width + x;
+
+				if (_backBuffer[index] == _frontBuffer[index])
+					continue;
+
+				Console.SetCursorPosition(x, y);
+				Console.ForegroundColor = _backBuffer[index].FgColor;
+				Console.BackgroundColor = _backBuffer[index].BgColor;
+				Console.Write(_backBuffer[index].Char);
+
+				// Sync front buffer to what is currently drawn
+				_frontBuffer[index] = _backBuffer[index];
+			}
+		}
+	}
 }
