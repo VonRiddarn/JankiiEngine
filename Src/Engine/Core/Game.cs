@@ -16,7 +16,10 @@ abstract class Game(GameConfig config)
 	bool _isRunning = false;
 
 	readonly Dictionary<int, Entity> _entities = [];
-	readonly List<int> _entitiesToRemove = [];
+	readonly Queue<Entity> _entitiesToInstantiate = [];
+	readonly Queue<int> _entitiesToDestroy = [];
+
+	// Lowkey, hashset might be overkill, but it ensures a "one, and only one" relationship for instances. 
 	readonly HashSet<int> _enabledEntities = [];
 
 	public void Run()
@@ -29,10 +32,12 @@ abstract class Game(GameConfig config)
 		RunSplashScreen();
 		SetupConsoleEnvironment(_gameConfig);
 
+		// Setup Entity connection
+		Entity.Set_Game_Internal(this);
+
 		Initialize();
 
 		// Input thread
-
 		Input.Initialize_Internal();
 
 		// Update is on main thread.
@@ -70,11 +75,29 @@ abstract class Game(GameConfig config)
 	protected abstract void Draw(IRenderer renderer);
 
 	// ----- ----- -----
+	//	   	  API
+	// ----- ----- -----
+	internal void Instantiate_Entity_Internal(Entity entity)
+		=> _entitiesToInstantiate.Enqueue(entity);
+
+	internal void Destroy_Entity_Internal(Entity entity)
+		=> _entitiesToDestroy.Enqueue(entity.InstanceId);
+
+
+	// ----- ----- -----
 	//	   HELPERS
 	// ----- ----- -----
 
 	void UpdateEntities()
 	{
+		// Instantiate entities
+		while (_entitiesToInstantiate.Count > 0)
+		{
+			Entity e = _entitiesToInstantiate.Dequeue();
+			if (_entities.TryAdd(e.InstanceId, e))
+				e.OnInitialize();
+		}
+
 		// Update, enable or queue to destroy entities
 		if (_entities.Count > 0)
 		{
@@ -83,11 +106,7 @@ abstract class Game(GameConfig config)
 				Entity e = kvp.Value;
 
 				if (e.IsDestroyed)
-				{
-					e.OnDestroy();
-					_entitiesToRemove.Add(e.InstanceId);
 					continue;
-				}
 				else if (e.IsEnabled)
 				{
 					if (!_enabledEntities.Contains(e.InstanceId))
@@ -105,14 +124,13 @@ abstract class Game(GameConfig config)
 			}
 		}
 
-		// Destroy entities
-		foreach (int id in _entitiesToRemove)
+		// Instantiate entities
+		while (_entitiesToDestroy.Count > 0)
 		{
+			int id = _entitiesToDestroy.Dequeue();
 			_entities.Remove(id);
 			_enabledEntities.Remove(id);
 		}
-
-		_entitiesToRemove.Clear();
 	}
 
 	// ----- ----- -----
