@@ -98,7 +98,10 @@ abstract class Game(GameConfig config)
 					e.Update();
 				}
 				else
+				{
+					e.OnDisable();
 					_enabledEntities.Remove(e.InstanceId);
+				}
 			}
 		}
 

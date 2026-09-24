@@ -21,6 +21,7 @@ public abstract class Entity
 	public abstract void Update();
 	public virtual void OnInitialize() { }
 	public abstract void OnEnable();
+	public abstract void OnDisable();
 	public virtual void OnDestroy() { }
 	public virtual void Draw(IRenderer renderer) { }
 }
